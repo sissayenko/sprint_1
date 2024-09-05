@@ -1,0 +1,79 @@
+@startuml
+allowmixing
+left to right direction
+skinparam linetype polyline
+
+component "App" as app  {
+    
+}
+
+component header as "Header"{
+
+}
+hexagon s as "Switch" {
+
+}
+component footer as "Footer" {
+
+}
+component main as "Main" {
+
+}
+component reg as "Register" {
+
+}
+component login as "Login" {
+
+}
+component card as "Card" {
+
+}
+component epp as "EditProfilePopup" {
+
+}
+component app1 as "AddPlacePopup" {
+
+}
+component eap as "EditAvatarPopup" {
+
+}
+component ip as "ImagePopup" {
+
+}
+component it as "InfoTooltip" {
+
+}
+
+class auth {
+        checkToken()
+        register()
+        login()
+    }
+
+class api {
+    getUserInfo()
+    setUserInfo()
+    setUserAvatar()
+    getAppInfo()
+    getUserInfo()
+    addCard()
+    changeLikeCardStatus()
+    removeCard()
+}
+
+app -[dotted]-> header
+app -[dotted]-> s
+app -[dotted]-> footer
+
+s -[dotted]-> main
+s -[dotted]-> reg
+s -[dotted]-> login
+
+main -[dotted]-> card
+
+app -[dotted]-> epp
+app -[dotted]-> app1
+app -[dotted]-> eap
+app -[dotted]-> ip
+app -[dotted]-> it
+@enduml

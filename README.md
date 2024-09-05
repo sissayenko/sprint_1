@@ -3,85 +3,7 @@
 ##  1. Разделение проекта Mesto на несколько микрофронтендов
 
 ### Схема текущей реализации
-```plantuml
-allowmixing
-left to right direction
-skinparam linetype polyline
-
-component "App" as app  {
-    
-}
-
-component header as "Header"{
-
-}
-hexagon s as "Switch" {
-
-}
-component footer as "Footer" {
-
-}
-component main as "Main" {
-
-}
-component reg as "Register" {
-
-}
-component login as "Login" {
-
-}
-component card as "Card" {
-
-}
-component epp as "EditProfilePopup" {
-
-}
-component app1 as "AddPlacePopup" {
-
-}
-component eap as "EditAvatarPopup" {
-
-}
-component ip as "ImagePopup" {
-
-}
-component it as "InfoTooltip" {
-
-}
-
-class auth {
-        checkToken()
-        register()
-        login()
-    }
-
-class api {
-    getUserInfo()
-    setUserInfo()
-    setUserAvatar()
-    getAppInfo()
-    getUserInfo()
-    addCard()
-    changeLikeCardStatus()
-    removeCard()
-}
-
-app -[dotted]-> header
-app -[dotted]-> s
-app -[dotted]-> footer
-
-s -[dotted]-> main
-s -[dotted]-> reg
-s -[dotted]-> login
-
-main -[dotted]-> card
-
-app -[dotted]-> epp
-app -[dotted]-> app1
-app -[dotted]-> eap
-app -[dotted]-> ip
-app -[dotted]-> it
-```
+![](s1_1.png)
 
 ### Обоснование выбора технологии
 Module Federation — это библиотека для создания микрофронтендов. Она позволяет различным частям  приложения общаться друг с другом и эффективно делиться кодом. Это упрощает и ускоряет обновление и поддержку вашего приложения.
@@ -99,55 +21,7 @@ Single-SPA — это другой способ создания микрофр�
 * Доступность документации: Документация по Module Federation более доступна.
 
 ### Схема предлагаемой реализации
-```plantuml
-allowmixing
-left to right direction
-skinparam linetype polyline
-
-component "host:8080" as host {
-    component Footer
-    class auth {
-        checkToken()
-    }
-}
-component "users:8081" as users {
-    component Header 
-    component Login
-    component Register
-    component EditAvatarPopup
-    component EditProfilePopup
-    component PopupWithForm
-    
-    class auth {
-        register()
-        login()
-    }   
-    class api {
-        getUserInfo()
-        setUserInfo()
-        setUserAvatar()        
-    }
-}
-component "card-list:8082" as card_list {
-    component Main
-    component Card
-    component AddPlacePopup
-    component ImagePopup
-    component PopupWithForm
-
-    class api {
-        getAppInfo()
-        getUserInfo()
-        addCard()
-        changeLikeCardStatus()
-        removeCard()
-    }
-}
-
-host --> users
-host --> card_list
-
-```
+![](s1_2.png)
 Предлагается выделить 2 основных микрофронтенда: один - отвечающий за работу с фотографиями пользователя, в т.ч. и за учёт лайков; второй - за работу с профилем пользователя. Учитывая, что приложение имеет встроенную систему аутентификации, функции по регистрации/аутентификации пользователя предлагается не выделять в отдельный фронтенд и оставить в профиле.
 
 Соответственно, компоненты, отвечающие за тот или иной функционал должны быть отнесены к соответсвующему микрофронтенду согласно приведённой схеме.

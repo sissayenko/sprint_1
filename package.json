@@ -1,0 +1,11 @@
+{
+    "scripts": {
+        "start:host": "cd host && npm start",
+        "start:users": "cd users && npm start",
+        "start:card-list": "cd card-list && npm start",
+        "start:all": "concurrently \"npm run start:host\" \"npm run start:users\" \"npm run start:card-list\""
+    },
+    "devDependencies": {
+        "concurrently": "^5.3.0"
+    }
+}
