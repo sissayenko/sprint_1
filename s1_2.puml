@@ -1,0 +1,49 @@
+@startuml
+allowmixing
+left to right direction
+skinparam linetype polyline
+
+component "host:8080" as host {
+    component Footer
+    class auth {
+        checkToken()
+    }
+}
+component "users:8081" as users {
+    component Header 
+    component Login
+    component Register
+    component EditAvatarPopup
+    component EditProfilePopup
+    component PopupWithForm
+    
+    class auth {
+        register()
+        login()
+    }   
+    class api {
+        getUserInfo()
+        setUserInfo()
+        setUserAvatar()        
+    }
+}
+component "card-list:8082" as card_list {
+    component Main
+    component Card
+    component AddPlacePopup
+    component ImagePopup
+    component PopupWithForm
+
+    class api {
+        getAppInfo()
+        getUserInfo()
+        addCard()
+        changeLikeCardStatus()
+        removeCard()
+    }
+}
+
+host --> users
+host --> card_list
+
+@enduml
